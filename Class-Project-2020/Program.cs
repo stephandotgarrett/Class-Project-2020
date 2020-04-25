@@ -28,38 +28,53 @@ namespace Class_Project_2020
 			Console.Clear();
 			Console.WriteLine("");
 			Console.WriteLine("Are you ready for an adventure?");
-			Console.WriteLine("1) ");
-			Console.WriteLine("2) ");
-			Console.WriteLine("3) No, I'm scared!");
-			Console.WriteLine("4) Get back to the 'real' world");
+			Console.WriteLine("1) Let's do it!");
+			Console.WriteLine("2) No, I'm scared!");
 
 			string runChoice = Console.ReadLine();
 
 			if (runChoice == "1")
             {
 				WritePlayerInfo();
+				ListPokemon(pokemon);
+				Console.WriteLine("");
+				Console.WriteLine("1) New adventurer");
+				Console.WriteLine("2) Continue adventure");
+
+				string contChoice = Console.ReadLine();
+
+                if (contChoice == "1")
+                {
+					Console.WriteLine("It's always great to meet new people!");
+					Console.WriteLine("What's your name?");
+					name = Console.ReadLine();
+                    //write new player to player.txt file
+
+				}
+                else if (contChoice == "2")
+                {
+                    //look for player in player.txt file
+                }
 			}
 			else if (runChoice == "2")
             {
-				ListPokemon(pokemon);
-            }
-			else if (runChoice == "3")
-            {
 				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("You should be. The world is a dangerous place...");
-				Console.ResetColor();
-				Console.WriteLine("Press ENTER to continue");
-				Console.ReadLine();
-				RunMenu();
-            }
-            else if (runChoice == "4")
-			{
-				Console.Clear();
+				Console.WriteLine("You should be. This world is a dangerous place...");
 				Console.WriteLine("Goodbye");
 				System.Threading.Thread.Sleep(2000);
+				Console.ResetColor();
 				return;
-			}
-			else { }
+            }
+   //         else if (runChoice == "4")
+			//{
+			//	Console.Clear();
+			//	Console.WriteLine("Goodbye");
+			//	System.Threading.Thread.Sleep(2000);
+			//	return;
+			else {
+				Console.WriteLine("I'm sorry, that doesn't seem to be one of the options");
+				RunMenu();
+            }
 		}
 
 		public static void ContinueMenu()
