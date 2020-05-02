@@ -10,7 +10,7 @@ namespace Class_Project_2020
     public class Pokemon
     {
         //#,Name,Type 1,Type 2,Total,HP,Attack,Defense,Sp. Atk,Sp. Def,Speed,Generation,Legendary
-        public int _number { get; set; }
+        public string _number { get; set; }
         public string _name { get; set; }
         public string _type1 { get; set; }
         public string _type2 { get; set; }

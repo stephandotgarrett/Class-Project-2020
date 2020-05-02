@@ -12,7 +12,8 @@ namespace Class_Project_2020
 		private static List<Pokemon> pokemon = new List<Pokemon>();
 		private static List<Pokemon> player = new List<Pokemon>();
 		private static string name = "";
-        private static string currentDirectory = Directory.GetCurrentDirectory();
+		private static string partner = "";
+		private static string currentDirectory = Directory.GetCurrentDirectory();
 		private static DirectoryInfo directory = new DirectoryInfo(currentDirectory);
 		private static string pokemonFile = Path.Combine(directory.FullName, "Pokemon.txt");
 		private static string playerFile = Path.Combine(directory.FullName, "Player.txt");
@@ -35,9 +36,10 @@ namespace Class_Project_2020
 
 			if (runChoice == "1")
             {
-				WritePlayerInfo();
-				ListPokemon(pokemon);
-				Console.WriteLine("");
+				//CreatePlayer();
+				//ListPokemon(pokemon);
+				Console.Clear();
+				Console.WriteLine("Awesome! I can't wait to get going!");
 				Console.WriteLine("1) New adventurer");
 				Console.WriteLine("2) Continue adventure");
 
@@ -45,16 +47,60 @@ namespace Class_Project_2020
 
                 if (contChoice == "1")
                 {
+					Console.Clear();
 					Console.WriteLine("It's always great to meet new people!");
 					Console.WriteLine("What's your name?");
 					name = Console.ReadLine();
-                    //write new player to player.txt file
+					player = CreatePokeList(pokemonFile);
+					Console.Clear();
+					Console.WriteLine("You souldn't go alone, {0}", name);
+					Console.WriteLine("Pick one of these pokemon as your partner for the journey:");
+					Console.WriteLine("1) Bulbasaur");
+					Console.WriteLine("2) Charmander");
+					Console.WriteLine("3) Squirtle");
+					Console.WriteLine("4) Pikachu");
 
+					string partnerChoice = Console.ReadLine();
+
+                    if (partnerChoice == "1") { partner = "Bulbasaur"; }
+					else if (partnerChoice == "2") { partner = "Charmander"; }
+					else if (partnerChoice == "3") { partner = "Squirtle"; }
+					else if (partnerChoice == "4") { partner = "Pikachu"; }
+                    else { Console.WriteLine("That's not an option"); };
+
+					foreach (Pokemon pokemon in player)
+                    {
+                        if (partner == pokemon._name) { pokemon._avail = true; };
+                    }
+					SavePlayer();
+					//ListPokemon(player);
+					ContinueMenu();
 				}
                 else if (contChoice == "2")
                 {
-                    //look for player in player.txt file
-                }
+					//look for player in player.txt file
+					{
+						using (var reader = new StreamReader(playerFile))
+						{
+							name = reader.ReadLine();
+							partner = reader.ReadLine();
+						}
+						if (name == "") // Delivers message if no stored player is found
+						{
+							Console.Clear();
+							Console.WriteLine("It looks like there are no previous players");
+							RunMenu();
+						}
+						else if (name != "") // Runs continue if previous player is found
+						{
+							Console.Clear();
+							Console.WriteLine("Welcome back, {0} and {1}", name, partner);
+							ContinueMenu();
+						}
+					}
+					player = CreatePokeList(playerFile);
+
+				}
 			}
 			else if (runChoice == "2")
             {
@@ -79,19 +125,22 @@ namespace Class_Project_2020
 
 		public static void ContinueMenu()
 		{
-			Console.Clear();
-			Console.WriteLine("");
-			Console.WriteLine("");
-			Console.WriteLine("1) ");
-			Console.WriteLine("2) ");
-			Console.WriteLine("3) ");
+			Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+			Console.WriteLine("Which direction will you head first?");
+			Console.WriteLine("1) North");
+			Console.WriteLine("2) South");
+			Console.WriteLine("3) East");
+			Console.WriteLine("4) West");
 
-			string ContChoice = Console.ReadLine();
+			string contChoice = Console.ReadLine();
 
-			if (ContChoice == "1") { }
-			else if (ContChoice == "2") { }
-			else if (ContChoice == "3") { }
-			else { }
+            //Create method here to decide what happens when travelling
+
+			if (contChoice == "1") { Console.WriteLine("{0} it is", contChoice); }
+			else if (contChoice == "2") { Console.WriteLine("{0} it is", contChoice); }
+			else if (contChoice == "3") { Console.WriteLine("{0} it is", contChoice); }
+			else if (contChoice == "4") { Console.WriteLine("{0} it is", contChoice); }
+			else {}
 		}
 
 		public static List<Pokemon> CreatePokeList(string fileName)
@@ -101,6 +150,7 @@ namespace Class_Project_2020
 			{
 				string line = "";
 				reader.ReadLine();
+				reader.ReadLine();
 				while ((line = reader.ReadLine()) != null)
 				{
 					
@@ -108,7 +158,7 @@ namespace Class_Project_2020
 					string[] values = line.Split(',');
 
 					string num = values[0];
-					pokemon._number = Int32.Parse(num);
+					pokemon._number = num;
 
 					string name = values[1];
 					pokemon._name = name;
@@ -158,11 +208,12 @@ namespace Class_Project_2020
 
 
 
-		public static void WritePlayerInfo()
+		public static void SavePlayer()
 		{
-			using (StreamWriter sw = new StreamWriter("Character.txt"))
+			using (StreamWriter sw = new StreamWriter("Player.txt"))
 			{
 				sw.WriteLine(name);
+				sw.WriteLine(partner);
 				foreach (Pokemon pokemon in player)
 				{
 					//#,Name,Type 1,Type 2,Total,HP,Attack,Defense,Sp. Atk,Sp. Def,Speed,Generation,Legendary
