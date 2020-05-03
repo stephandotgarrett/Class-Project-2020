@@ -11,8 +11,10 @@ namespace Class_Project_2020
 	{
 		private static List<Pokemon> pokemon = new List<Pokemon>();
 		private static List<Pokemon> player = new List<Pokemon>();
+		private static List<Pokemon> availablePokemon = new List<Pokemon>();
 		private static string name = "";
 		private static string partner = "";
+		public static string direction = "";
 		private static string currentDirectory = Directory.GetCurrentDirectory();
 		private static DirectoryInfo directory = new DirectoryInfo(currentDirectory);
 		private static string pokemonFile = Path.Combine(directory.FullName, "Pokemon.txt");
@@ -73,7 +75,9 @@ namespace Class_Project_2020
                         if (partner == pokemon._name) { pokemon._avail = true; };
                     }
 					SavePlayer();
-					//ListPokemon(player);
+					ListPokemon(player);
+					Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+					System.Threading.Thread.Sleep(2000);
 					ContinueMenu();
 				}
                 else if (contChoice == "2")
@@ -94,7 +98,8 @@ namespace Class_Project_2020
 						else if (name != "") // Runs continue if previous player is found
 						{
 							Console.Clear();
-							Console.WriteLine("Welcome back, {0} and {1}", name, partner);
+							Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+							System.Threading.Thread.Sleep(2000);
 							ContinueMenu();
 						}
 					}
@@ -125,23 +130,35 @@ namespace Class_Project_2020
 
 		public static void ContinueMenu()
 		{
-			Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+			string toCatch = "";
 			Console.WriteLine("Which direction will you head first?");
 			Console.WriteLine("1) North");
 			Console.WriteLine("2) South");
 			Console.WriteLine("3) East");
 			Console.WriteLine("4) West");
 
-			string contChoice = Console.ReadLine();
+			string directionChoice = Console.ReadLine();
 
-            //Create method here to decide what happens when travelling
+			if (directionChoice == "1") { direction = "North"; }
+			else if (directionChoice == "2") { direction = "South"; }
+			else if (directionChoice == "3") { direction = "East"; }
+			else if (directionChoice == "4") { direction = "West"; }
+			else { Console.WriteLine("That's not an option"); };
 
-			if (contChoice == "1") { Console.WriteLine("{0} it is", contChoice); }
-			else if (contChoice == "2") { Console.WriteLine("{0} it is", contChoice); }
-			else if (contChoice == "3") { Console.WriteLine("{0} it is", contChoice); }
-			else if (contChoice == "4") { Console.WriteLine("{0} it is", contChoice); }
+			//Create method here to decide what happens when travelling
+
+			if (direction == "North")
+            {
+				toCatch = FindPokemon();
+                Console.WriteLine("{0} it is", direction);
+				Console.WriteLine(toCatch);
+			}
+			else if (direction == "2") { Console.WriteLine("{0} it is", direction); }
+			else if (direction == "3") { Console.WriteLine("{0} it is", direction); }
+			else if (direction == "4") { Console.WriteLine("{0} it is", direction); }
 			else {}
 		}
+
 
 		public static List<Pokemon> CreatePokeList(string fileName)
 		{
@@ -163,26 +180,26 @@ namespace Class_Project_2020
 					string name = values[1];
 					pokemon._name = name;
 
-					string type1 = values[2];
-					pokemon._type1 = type1;
+					//string type1 = values[2];
+					//pokemon._type1 = type1;
 
-					string type2 = values[3];
-					pokemon._type2 = type2;
+					//string type2 = values[3];
+					//pokemon._type2 = type2;
 
-					string total = values[4];
-					pokemon._total = Int32.Parse(total);
+					//string total = values[4];
+					//pokemon._total = Int32.Parse(total);
 
-					string hitPoints = values[5];
-					pokemon._hitPoints = Int32.Parse(hitPoints);
+					//string hitPoints = values[5];
+					//pokemon._hitPoints = Int32.Parse(hitPoints);
 
-					string attack = values[6];
-					pokemon._attack = Int32.Parse(attack);
+					//string attack = values[6];
+					//pokemon._attack = Int32.Parse(attack);
 
-					string defense = values[7];
-					pokemon._defense = Int32.Parse(defense);
+					//string defense = values[7];
+					//pokemon._defense = Int32.Parse(defense);
 
                     bool avail;
-                    if (Boolean.TryParse(values[12], out avail))
+                    if (Boolean.TryParse(values[2], out avail))
                     {
                         pokemon._avail = avail;
                     }
@@ -194,20 +211,42 @@ namespace Class_Project_2020
 		}
 
 
-
-		public static void ListPokemon(List<Pokemon> pokemons)
+		public static List<Pokemon> ListPokemon(List<Pokemon> pokemons)
 		{
-			foreach (Pokemon pokemon in pokemons)
+			var availMons = new List<Pokemon>();
+			foreach (Pokemon pokemon in player)
 			{
-				if (pokemon._avail == true)
+
+				if (pokemon._avail == false)
 				{
-					Console.WriteLine(pokemon._number + " " + pokemon._name);
+					availMons.Add(pokemon);
 				}
 			}
+			return availMons;
 		}
 
 
+        //Method for finding pokemon in travel
+        public static string FindPokemon()
+        {
+			string pokemonToCatch = "";
+			availablePokemon = ListPokemon(player);
+			var rnd = new Random();
+			string pokeNum = rnd.Next(1, 151).ToString();
+			foreach (Pokemon pokemon in availablePokemon)
+			{
+				if (pokeNum == pokemon._number)
+                {
+					pokemonToCatch = pokemon._name;
+					//return pokemonToCatch;
+				}
+                else {}
+			}
+			return pokemonToCatch;
+        }
 
+
+        //Method to save a new players name, his partner, and all pokemon available to catch within the game
 		public static void SavePlayer()
 		{
 			using (StreamWriter sw = new StreamWriter("Player.txt"))
@@ -216,17 +255,14 @@ namespace Class_Project_2020
 				sw.WriteLine(partner);
 				foreach (Pokemon pokemon in player)
 				{
-					//#,Name,Type 1,Type 2,Total,HP,Attack,Defense,Sp. Atk,Sp. Def,Speed,Generation,Legendary
-					//public int _number { get; set; }
-					//public string _name { get; set; }
-					//public string _type1 { get; set; }
-					//public string _type2 { get; set; }
-					//public int _total { get; set; }
-					//public int _hitPoints { get; set; }
-					//public int _attack { get; set; }
-					//public int _defense { get; set; }
-					//public bool _avail { get; set; }
-					sw.WriteLine(pokemon._number + "," + pokemon._name + "," + pokemon._type1 + ", " + pokemon._type2 + ", " + pokemon._total + ", " + pokemon._hitPoints + ", " + pokemon._attack + ", " + pokemon._defense + ", " + pokemon._avail);
+					sw.WriteLine(
+                        pokemon._number + "," +
+                        pokemon._name + "," +
+                        //pokemon._total + ", " +
+                        //pokemon._hitPoints + ", " +
+                        //pokemon._attack + ", " +
+                        //pokemon._defense + ", " +
+                        pokemon._avail);
 				}
 			}
 		}

@@ -10,3 +10,5 @@
 /Users/stephangarrett/Documents/Projects/Class-Project-2020/Class-Project-2020/obj/Debug/netcoreapp3.1/Class-Project-2020.pdb
 /Users/stephangarrett/Documents/Projects/Class-Project-2020/Class-Project-2020/bin/Debug/netcoreapp3.1/Pokemon.txt
 /Users/stephangarrett/Documents/Projects/Class-Project-2020/Class-Project-2020/bin/Debug/netcoreapp3.1/Player.txt
+/Users/stephangarrett/Documents/Projects/Class-Project-2020/Class-Project-2020/obj/Debug/netcoreapp3.1/Class-Project-2020.csproj.CoreCompileInputs.cache
+/Users/stephangarrett/Documents/Projects/Class-Project-2020/Class-Project-2020/obj/Debug/netcoreapp3.1/Class-Project-2020.genruntimeconfig.cache
