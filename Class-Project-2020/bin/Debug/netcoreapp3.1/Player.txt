@@ -1,11 +1,12 @@
-dyu
+sdfsd
 Charmander
+1,Bulbasaur,False
 2,Ivysaur,False
 3,Venusaur,False
 4,Charmander,True
 5,Charmeleon,False
 6,Charizard,False
-7,Squirtle,True
+7,Squirtle,False
 8,Wartortle,False
 9,Blastoise,False
 10,Caterpie,False
