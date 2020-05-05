@@ -1,12 +1,12 @@
-stephan
-Charmander
+Stephan
+Squirtle
 1,Bulbasaur,False
 2,Ivysaur,False
 3,Venusaur,False
-4,Charmander,True
+4,Charmander,False
 5,Charmeleon,False
 6,Charizard,False
-7,Squirtle,False
+7,Squirtle,True
 8,Wartortle,False
 9,Blastoise,False
 10,Caterpie,False
@@ -41,9 +41,9 @@ Charmander
 39,Jigglypuff,False
 40,Wigglytuff,False
 41,Zubat,False
-42,Golbat,False
+42,Golbat,True
 43,Oddish,False
-44,Gloom,False
+44,Gloom,True
 45,Vileplume,False
 46,Paras,False
 47,Parasect,False
@@ -61,7 +61,7 @@ Charmander
 59,Arcanine,False
 60,Poliwag,False
 61,Poliwhirl,False
-62,Poliwrath,False
+62,Poliwrath,True
 63,Abra,False
 64,Kadabra,False
 65,Alakazam,False
@@ -77,12 +77,12 @@ Charmander
 75,Graveler,False
 76,Golem,False
 77,Ponyta,False
-78,Rapidash,False
+78,Rapidash,True
 79,Slowpoke,False
 80,Slowbro,False
 81,Magnemite,False
 82,Magneton,False
-83,Farfetch'd,False
+83,Farfetch'd,True
 84,Doduo,False
 85,Dodrio,False
 86,Seel,False
@@ -116,9 +116,9 @@ Charmander
 114,Tangela,False
 115,Kangaskhan,False
 116,Horsea,False
-117,Seadra,False
+117,Seadra,True
 118,Goldeen,False
-119,Seaking,False
+119,Seaking,True
 120,Staryu,False
 121,Starmie,False
 122,Mr. Mime,False
@@ -144,7 +144,7 @@ Charmander
 142,Aerodactyl,False
 143,Snorlax,False
 144,Articuno,False
-145,Zapdos,False
+145,Zapdos,True
 146,Moltres,False
 147,Dratini,False
 148,Dragonair,False

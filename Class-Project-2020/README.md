@@ -1,7 +1,8 @@
 # Class-Project-2020
 Class project for 2020
 
-My class project will be a C# console "game" in which the player attempts to "catch" pokemon. I will be using a csv of pokemon with stats as a base of information. Each player will create a profile and choose a pokemon to start with from options pulled from the csv file and then allowed to "explore" to find more pokemon to collect. The player profiles will be saved with the players name, rank, and collection for access later.
+My class project will be a C# console "game" in which the player attempts to "catch" pokemon. I will be using a csv of pokemon with stats as a base of information. Each player will create a profile and choose a pokemon to start with from options pulled from the csv file and then allowed to "explore" to find more pokemon to collect. The player profile will be saved with the players name, partner, and collection for access later.
+Follow to in console menus and enjoy!
 
 The following is a list of target dates with goals to complete by each date
 
