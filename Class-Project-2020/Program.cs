@@ -27,7 +27,6 @@ namespace Class_Project_2020
 		public static void RunMenu()
 		{
 			Console.Clear();
-			Console.WriteLine("");
 			Console.WriteLine("Are you ready for an adventure?");
 			Console.WriteLine("1) Let's do it!");
 			Console.WriteLine("2) No, I'm scared!");
@@ -38,97 +37,127 @@ namespace Class_Project_2020
             {
 				Console.Clear();
 				Console.WriteLine("Awesome! I can't wait to get going!");
-				Console.WriteLine("1) New adventurer");
-				Console.WriteLine("2) Continue adventure");
-
-				string contChoice = Console.ReadLine();
-
-                if (contChoice == "1")
-                {
-					Console.Clear();
-					Console.WriteLine("It's always great to meet new people!");
-					Console.WriteLine("What's your name?");
-					name = Console.ReadLine();
-					player = CreatePokeList(pokemonFile);
-					Console.Clear();
-					Console.WriteLine("You souldn't go alone, {0}", name);
-					Console.WriteLine("Pick one of these pokemon as your partner for the journey:");
-					Console.WriteLine("1) Bulbasaur");
-					Console.WriteLine("2) Charmander");
-					Console.WriteLine("3) Squirtle");
-					Console.WriteLine("4) Pikachu");
-
-					string partnerChoice = Console.ReadLine();
-
-                    if (partnerChoice == "1") { partner = "Bulbasaur"; }
-					else if (partnerChoice == "2") { partner = "Charmander"; }
-					else if (partnerChoice == "3") { partner = "Squirtle"; }
-					else if (partnerChoice == "4") { partner = "Pikachu"; }
-                    else { Console.WriteLine("That's not an option"); };
-
-					foreach (Pokemon pokemon in player)
-                    {
-                        if (partner == pokemon._name) { pokemon._avail = true; };
-                    }
-					SavePlayer();
-					//ListPokemon(player);
-					Console.WriteLine("Good luck, {0} and {1}!", name, partner);
-					System.Threading.Thread.Sleep(1000);
-					ContinueMenu();
-				}
-                else if (contChoice == "2")
-                {
-					//look for player in player.txt file
-					{
-						using (var reader = new StreamReader(playerFile))
-						{
-							name = reader.ReadLine();
-							partner = reader.ReadLine();
-						}
-						if (name == "") // Delivers message if no stored player is found
-						{
-							Console.Clear();
-							Console.WriteLine("It looks like there are no previous players");
-							RunMenu();
-						}
-						else if (name != "") // Runs continue if previous player is found
-						{
-							Console.Clear();
-							Console.WriteLine("Good luck, {0} and {1}!", name, partner);
-							System.Threading.Thread.Sleep(1000);
-							player = CreatePokeList(playerFile);
-							ContinueMenu();
-						}
-					}
-					player = CreatePokeList(playerFile);
-
-				}
+				RunMenuPartTwo();
 			}
 			else if (runChoice == "2")
             {
+				Console.Clear();
 				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("You should be. This world is a dangerous place...");
 				Console.WriteLine("Goodbye");
-				System.Threading.Thread.Sleep(2000);
+				System.Threading.Thread.Sleep(1000);
 				Console.ResetColor();
 				return;
             }
 			else {
 				Console.WriteLine("I'm sorry, that doesn't seem to be one of the options");
+				System.Threading.Thread.Sleep(1000);
 				RunMenu();
             }
+		}
+
+        public static void RunMenuPartTwo()
+        {
+			Console.WriteLine("1) New adventurer");
+			Console.WriteLine("2) Continue adventure");
+			Console.WriteLine("3) Back to main menu");
+			Console.WriteLine("4) I changed my mind, I really am scared!");
+
+			string contChoice = Console.ReadLine();
+
+			if (contChoice == "1")
+			{
+				Console.Clear();
+				Console.WriteLine("It's always great to meet new people!");
+				Console.WriteLine("What's your name?");
+				name = Console.ReadLine();
+				player = CreatePokeList(pokemonFile);
+				Console.Clear();
+				Console.WriteLine("You souldn't go alone, {0}", name);
+				Console.WriteLine("Pick one of these pokemon as your partner for the journey:");
+				Console.WriteLine("1) Bulbasaur");
+				Console.WriteLine("2) Charmander");
+				Console.WriteLine("3) Squirtle");
+				Console.WriteLine("4) Pikachu");
+
+				string partnerChoice = Console.ReadLine();
+
+				if (partnerChoice == "1") { partner = "Bulbasaur"; }
+				else if (partnerChoice == "2") { partner = "Charmander"; }
+				else if (partnerChoice == "3") { partner = "Squirtle"; }
+				else if (partnerChoice == "4") { partner = "Pikachu"; }
+				else { Console.WriteLine("That's not an option"); };
+
+				foreach (Pokemon pokemon in player)
+				{
+					if (partner == pokemon._name) { pokemon._avail = true; };
+				}
+				SavePlayer();
+				//ListPokemon(player);
+				Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+				System.Threading.Thread.Sleep(1000);
+				ContinueMenu();
+			}
+			else if (contChoice == "2")
+			{
+				//look for player in player.txt file
+				{
+					using (var reader = new StreamReader(playerFile))
+					{
+						name = reader.ReadLine();
+						partner = reader.ReadLine();
+					}
+					if (name == "") // Delivers message if no stored player is found
+					{
+						Console.Clear();
+						Console.WriteLine("It looks like there are no previous players");
+						RunMenu();
+					}
+					else if (name != "") // Runs continue if previous player is found
+					{
+						Console.Clear();
+						Console.WriteLine("Good luck, {0} and {1}!", name, partner);
+						System.Threading.Thread.Sleep(1000);
+						player = CreatePokeList(playerFile);
+						ContinueMenu();
+					}
+				}
+				player = CreatePokeList(playerFile);
+
+			}
+			else if (contChoice == "3")
+			{
+				RunMenu();
+			}
+			else if (contChoice == "4")
+			{
+				Console.Clear();
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.WriteLine("You should be. This world is a dangerous place...");
+				Console.WriteLine("Goodbye");
+				System.Threading.Thread.Sleep(1000);
+				Console.ResetColor();
+				return;
+			}
+			else
+			{
+				Console.WriteLine("I'm sorry, that's not one of the options");
+				System.Threading.Thread.Sleep(1000);
+				Console.Clear();
+				Console.WriteLine("I can't wait to get going!");
+				RunMenuPartTwo();
+			}
 		}
 
         //Method to play main game
 		public static void ContinueMenu()
 		{
-			//toCatch stores pokemon found during adventure
-			//toCatch = FindPokemon();
 			string toCatch = "";
 			string direction = "";
 			string caught = "";
+			string catchChoice = "";
 
-		Console.Clear();
+		    Console.Clear();
 			Console.WriteLine("Which direction will you travel?");
 			Console.WriteLine("1) North");
 			Console.WriteLine("2) South");
@@ -167,8 +196,44 @@ namespace Class_Project_2020
 			toCatch = FindPokemon();
 			//Console.WriteLine("{0} it is!", direction);
 			Console.WriteLine("A wild {0} has appeared!", toCatch);
-			caught = AttemptCatch(toCatch);
-			Console.WriteLine("You caught {0}", caught);
+
+			//break to attempt to catch menu
+			Console.WriteLine("What are you going to do with {0}?", toCatch);
+			Console.WriteLine("1) Catch it!");
+			Console.WriteLine("2) Leave it and continue on my journey");
+			Console.WriteLine("3) Leave it and go home");
+			catchChoice = Console.ReadLine();
+			if (catchChoice == "1")
+			{
+				caught = AttemptCatch(toCatch);
+				if (caught == toCatch)
+                {
+                    Console.WriteLine("You caught {0}", caught);
+					Console.WriteLine("What now?");
+					Console.WriteLine("1) Keep going");
+					Console.WriteLine("2) Head home");
+					string choice = Console.ReadLine();
+                    if (choice == "1") { ContinueMenu(); }
+                    else if (choice == "2") { RunMenu(); }
+                }
+				else
+                {
+                    Console.WriteLine(caught);
+					Console.WriteLine("Let's keep going and see what we find");
+					System.Threading.Thread.Sleep(1000);
+					ContinueMenu();
+				}
+			}
+            else if (catchChoice == "2")
+            {
+				ContinueMenu();
+            }
+            else if (catchChoice == "3")
+            {
+				Console.WriteLine("Thanks for playing!");
+				System.Threading.Thread.Sleep(1000);
+				RunMenu();
+            }
 
 		}
 
@@ -176,38 +241,56 @@ namespace Class_Project_2020
         public static string AttemptCatch(string pokemonToAttempt)
         {
 			string Caught = "";
+			string pokeName = pokemonToAttempt;
+			bool caughtOrNot = TryToCatch();
 			foreach (Pokemon playerpokemon in player)
             {
-                if (pokemonToAttempt == playerpokemon._name)
+                if (pokemonToAttempt == playerpokemon._name && caughtOrNot == true)
                 {
 					playerpokemon._avail = true;
 					Caught = playerpokemon._name;
 					return Caught;
                 }
-                else { Caught = "no luck"; }
+                else if (caughtOrNot == false)
+                {
+                    Caught = pokemonToAttempt + " got away!";
+					return Caught;
+                }
             }
 			return Caught;
         }
+
+		//Method to attempt to catch pokemon found in travel
+		public static bool TryToCatch()
+		{
+			var rand1 = new Random();
+			int val1 = rand1.Next(1, 2);
+			var rand2 = new Random();
+			int val2 = rand2.Next(3, 10);
+
+			if (val1 > val2) { return false; }
+			else { return true; }
+		}
 		//method here to attempt to catch pokemon, return bool to save to list
 		//bool attempt = false;
 		//	attempt = TryToCatch(toCatch);
 
 		//	if (attempt == true)
-        //    {
-        //        foreach(Pokemon pokemon in availablePokemon)
-        //        {
-        //            if (toCatch == pokemon._name)
-        //            {
+		//    {
+		//        foreach(Pokemon pokemon in availablePokemon)
+		//        {
+		//            if (toCatch == pokemon._name)
+		//            {
 		//				Console.WriteLine("Yay!! You caught {0}", toCatch);
 		//				pokemon._avail = true;
-         //           }
-        //            else { pokemon._avail = false; }
-        //        }
-        //    }
-        //    else
-        //    {
+		//           }
+		//            else { pokemon._avail = false; }
+		//        }
+		//    }
+		//    else
+		//    {
 		//		Console.WriteLine("{0} got away!", toCatch);
-        //    }
+		//    }
 		//}
 
 
@@ -244,18 +327,18 @@ namespace Class_Project_2020
 		}
 
 
-		public static List<Pokemon> ListPokemon(List<Pokemon> pokemons)
-		{
-			var availMons = new List<Pokemon>();
-			foreach (Pokemon pokemon1 in pokemons)
-			{
-				if (pokemon1._avail == false)
-				{
-					availMons.Add(pokemon1);
-				}
-			}
-			return availMons;
-		}
+		//public static List<Pokemon> ListPokemon(List<Pokemon> pokemons)
+		//{
+		//	var availMons = new List<Pokemon>();
+		//	foreach (Pokemon pokemon1 in pokemons)
+		//	{
+		//		if (pokemon1._avail == false)
+		//		{
+		//			availMons.Add(pokemon1);
+		//		}
+		//	}
+		//	return availMons;
+		//}
 
 
 		//Method for finding pokemon in travel
@@ -283,7 +366,7 @@ namespace Class_Project_2020
 				if (pokemonNumber == pokemon._number)
 				{
 					pokemonToCatch = pokemon._name;
-					pokemon._avail = true;
+					//pokemon._avail = true;
 					return pokemonToCatch;
 				}
 				else if (availArray.Length == 0)
@@ -313,17 +396,7 @@ namespace Class_Project_2020
 		}
 
 
-        //Method to attempt to catch pokemon found in travel
-		public static bool TryToCatch(string pokemon)
-        {
-			var rand1 = new Random();
-			int val1 = rand1.Next(1, 3);
-			var rand2 = new Random();
-			int val2 = rand2.Next(1, 10);
-
-			if (val1 > val2) { return false; }
-			else { return true; }
-        }
+        
 
 	}
 }
