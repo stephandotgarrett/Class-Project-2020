@@ -75,6 +75,7 @@ namespace Class_Project_2020
 			if (contChoice == "1")
 			{
                 CreateNewPlayer();
+				PrintPokemon();
 				Console.WriteLine("Good luck, {0} and {1}!", name, partner);
 				System.Threading.Thread.Sleep(1000);
 				TravelMenu();
@@ -213,6 +214,7 @@ namespace Class_Project_2020
 			}
 			else if (catchChoice == "2")
 			{
+				PrintPokemon();
 				TravelMenu();
 			}
 			else if (catchChoice == "3")
@@ -242,6 +244,7 @@ namespace Class_Project_2020
 				Console.WriteLine(caught);
 				Console.WriteLine("Let's keep going and see what we find");
 				System.Threading.Thread.Sleep(2000);
+				PrintPokemon();
 				TravelMenu();
 			}
 		}
@@ -257,6 +260,7 @@ namespace Class_Project_2020
 			string choice = Console.ReadLine();
 			if (choice == "1")
 			{
+				PrintPokemon();
 				TravelMenu();
 			}
 			else if (choice == "2")
@@ -310,6 +314,38 @@ namespace Class_Project_2020
 			return pokemonToCatch;
 		}
 
+        //Method to allow printing of pokemon caught
+        public static void PrintPokemon()
+        {
+			string choice = "";
+			Console.WriteLine("Would you like to see your collection of pokemon?");
+			Console.WriteLine("1) Yes");
+			Console.WriteLine("2) No");
+			choice = Console.ReadLine();
+
+			if (choice == "1")
+			{
+				foreach (Pokemon caughtPokemon in player)
+				{
+					if (caughtPokemon._avail == true)
+					{
+						Console.WriteLine(caughtPokemon._name);
+					}
+					else { }
+				}
+			}
+            else if (choice == "2")
+            {
+				Console.WriteLine("Ok, you'd better get going then");
+            }
+            else
+            {
+				Console.WriteLine("I didn't understand that choice");
+				PrintPokemon();
+            }
+			Console.WriteLine("Press any key to continue");
+			Console.ReadLine();
+        }
 
 		//Method to catch a pokemon found while travelling
 		public static string AttemptCatch(string pokemonToAttempt)
@@ -403,6 +439,7 @@ namespace Class_Project_2020
 				Console.WriteLine("Good luck, {0} and {1}!", name, partner);
 				System.Threading.Thread.Sleep(1000);
 				player = CreatePokeList(playerFile);
+				PrintPokemon();
 				TravelMenu();
 			}
 		}

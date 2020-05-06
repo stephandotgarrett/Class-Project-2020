@@ -1,6 +1,6 @@
 Stephan
 Squirtle
-1,Bulbasaur,False
+1,Bulbasaur,True
 2,Ivysaur,False
 3,Venusaur,False
 4,Charmander,False
@@ -95,7 +95,7 @@ Squirtle
 93,Haunter,False
 94,Gengar,False
 95,Onix,False
-96,Drowzee,False
+96,Drowzee,True
 97,Hypno,False
 98,Krabby,False
 99,Kingler,False
